@@ -1,0 +1,31 @@
+<h1>Upload</h1>
+<form id="upload-file" phx-submit="save" phx-change="validate">
+    <.live_file_input upload={@uploads.avatar} />
+    <button type="submit">Save</button>
+</form>
+
+<section style="background: tomato; height: 100px;" phx-drop-target={@uploads.avatar.ref}>
+    <%= for entry <- @uploads.avatar.entries do %>
+        <article class="upload-entry">
+            <figure>
+                <.live_img_preview entry={entry} />
+            <figcaption><%= entry.client_name %></figcaption></figure>
+            <progress value={entry.progress} max="100"> <%=  entry.progress %>%</progress>
+            <button phx-click="cancel_upload" phx-value-ref={entry.ref} aria-label="cancel">&times;</button>
+            <%=  for err <- upload_errors(@uploads.avatar, entry) do %>
+                <p class="alert alert-danger"><%= error_to_string(err) %></p>
+                <% end %>
+        </article>
+        <% end %>
+        <%= for err <- upload_errors(@uploads.avatar) do %>
+        <p class="alert alert-danger"><%= error_to_string(err) %></p>
+        <% end %>
+</section>
+
+<aside>
+    <ul>
+        <%= for file <- @files do %>
+        <li><img src={~p"/uploads/#{file} /></li>
+        <% end %>
+    </ul>
+</aside>
