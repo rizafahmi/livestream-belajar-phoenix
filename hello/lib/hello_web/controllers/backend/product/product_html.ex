@@ -1,7 +1,7 @@
 defmodule HelloWeb.ProductHTML do
   use HelloWeb, :html
 
-  embed_templates "../frontend/product_html/*"
+  embed_templates "../../frontend/product_html/*"
 
   @doc """
   Renders a product form.
