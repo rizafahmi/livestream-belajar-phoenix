@@ -3,7 +3,9 @@ defmodule MyAppWeb.ThermostatLive do
 
   def render(assigns) do
     ~H"""
-    Current temperature: <%= @temperature %>°F <button phx-click="inc_temperature">+</button>
+    <div phx-window-keyup="update_temp">
+      Current temperature: <%= @temperature %>°F <button phx-click="inc_temperature">+</button>
+    </div>
     <hr />
     <.link href={~p"/posts"}>Href Posts</.link>
     <.link navigate="https://rizafahmi.com">Navigate Posts</.link>
@@ -27,6 +29,16 @@ defmodule MyAppWeb.ThermostatLive do
     socket = socket |> assign(:page_title, "Temperature: #{temperature + 1}°F")
     {:noreply, update(socket, :temperature, fn temp -> temp + 1 end)}
   end
+
+  def handle_event("update_temp", %{"key" => "ArrowUp"}, socket) do
+    {:noreply, update(socket, :temperature, fn temp -> temp + 1 end)}
+  end
+
+  def handle_event("update_temp", %{"key" => "ArrowDown"}, socket) do
+    {:noreply, update(socket, :temperature, fn temp -> temp - 1 end)}
+  end
+
+  def handle_event("update_temp", _, socket), do: {:noreply, socket}
 
   def handle_params(%{"temperature" => temp}, _url, socket) do
     {:noreply, update(socket, :temperature, fn _ -> String.to_integer(temp) end)}

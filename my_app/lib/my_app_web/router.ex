@@ -22,6 +22,7 @@ defmodule MyAppWeb.Router do
 
     get "/", PageController, :home
     live("/upload", UploadLive)
+    live("/bindings", BindingsLive)
 
     live "/posts", PostLive.Index, :index
     live "/posts/new", PostLive.Index, :new
