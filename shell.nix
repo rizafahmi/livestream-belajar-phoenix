@@ -10,9 +10,9 @@ let
 	    libxml2
 	    curl
 	    libiconv
-	    elixir_1_16
+	    elixir_1_17
 	    glibcLocales
-	    nodejs_20
+	    nodejs_22
 	    yarn
 	    postgresql
 	  ];

@@ -1,0 +1,10 @@
+<h1>Linker</h1>
+
+<.form for={@form} phx-submit="submit">
+    <.input field={@form[:url]} type="text" label="URL" />
+    <button type="submit">Save</button>
+</.form>
+
+<div :for={link <- @links}>
+  <%= link.url %>
+</div>
